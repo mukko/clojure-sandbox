@@ -1,4 +1,4 @@
-(defproject sandbox "tenki-1.0.0"
+(defproject sandbox "tenki-1.0.1"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"

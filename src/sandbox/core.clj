@@ -18,11 +18,21 @@
 ; 気温を取得する
 ; (最高気温) / (最低気温)
 (defn get-today-temperature [forecasts]
-  (str (:celsius (:max (:temperature forecasts)))))
+  (str (:celsius (:max (:temperature forecasts))) "/" (:celsius (:min (:temperature forecasts)))) )
+
+(def webhook-url "")
+
+(defn send-to-slack [text]
+  (client/post webhook-url { :headers {"Content-Type" "application/json"}
+                             :body (json/write-str
+                               {
+                                 :username "すごいことを教えてくれる"
+                                 :text text
+                                 :icon_emoji ":underage:"
+                                 })}))
 
 ; 天気を表示させるメイン
 (defn -main [& args]
   (let [today (get-today-tenki (get-tenki))]
-    (println (:date today))
-    (println (str "今日の天気: " (:telop today)))
-    (println (str "気温: " (get-today-temperature today))) ))
+    (send-to-slack
+      (str "さいたま\n" (:date today) "\n今日の天気: " (:telop today) "\n気温(最高/最低): " (get-today-temperature today))) ))
