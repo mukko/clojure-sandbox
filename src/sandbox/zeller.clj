@@ -27,3 +27,9 @@
     13 (def y (- yyyy 1))
     14 (def y (- yyyy 1))
     (def y yyyy)))
+
+;年をCとYに分ける
+; 2015 -> C:20 Y:15
+(defn devide-year [yyyy]
+  (def C (Integer/parseInt (subs (str yyyy) 0 2)))
+  (def Y (Integer/parseInt (subs (str yyyy) 2))))
